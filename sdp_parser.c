@@ -119,9 +119,8 @@ void parse_line(const char *line) {
 int parse_media(const char *line) {
     printf("parsing media line: `%s'\n", line);
     regex_t re;
-    if (regcomp(&re, MediaRE, REG_EXTENDED) != 0) {
+    if (regcomp(&re, MediaRE, REG_EXTENDED) != 0)
         return -1;
-    }
 
     int rc = 0;
     const size_t nmatch = 3;
@@ -142,19 +141,14 @@ int parse_connection(const char *line) {
     printf("parsing connection line: `%s'\n", line);
     regex_t re;
     if (regcomp(&re, ConnectionRE, REG_EXTENDED) != 0)
-    {
         return -1;
-    }
 
     int rc = 0;
     size_t nmatch = 3;
     regmatch_t pmatch[nmatch];
-    if (regexec(&re, line, nmatch, pmatch, 0) == 0)
-    {
+    if (regexec(&re, line, nmatch, pmatch, 0) == 0) {
         PRINT_MATCH(line, "IP address", pmatch[2]);
-    }
-    else
-    {
+    } else {
         rc = -2;
     }
 
@@ -167,25 +161,19 @@ int parse_attribute(const char *line) {
     printf("parsing attribute line: `%s'\n", line);
     regex_t re;
     if (regcomp(&re, AttributeRE, REG_EXTENDED) != 0)
-    {
         return -1;
-    }
 
     int rc = 0;
     size_t nmatch = 3;
     regmatch_t pmatch[nmatch];
-    if (regexec(&re, line, nmatch, pmatch, 0) == 0)
-    {
+    if (regexec(&re, line, nmatch, pmatch, 0) == 0) {
         PRINT_MATCH(line, "name", pmatch[1]);
         PRINT_MATCH(line, "value", pmatch[2]);
 
-        if (strncmp(line + pmatch[1].rm_so, CandidateAttribute, pmatch[1].rm_eo - pmatch[1].rm_so) == 0)
-        {
+        if (strncmp(line + pmatch[1].rm_so, CandidateAttribute, pmatch[1].rm_eo - pmatch[1].rm_so) == 0) {
             parse_candidate_value(line + pmatch[2].rm_so);
         }
-    }
-    else
-    {
+    } else {
         rc = -2;
     }
 
@@ -198,9 +186,8 @@ int parse_candidate_value(const char *value) {
     printf("parsing candidate value:\n");
 
     regex_t re;
-    if (regcomp(&re, CandidateValueRE, REG_EXTENDED) != 0) {
+    if (regcomp(&re, CandidateValueRE, REG_EXTENDED) != 0)
         return -1;
-    }
 
     int rc = 0;
     size_t nmatch = 8;
