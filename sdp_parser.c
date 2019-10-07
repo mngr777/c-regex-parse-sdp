@@ -26,7 +26,7 @@ static const char SDP[] =
     if (_match.rm_so == -1) {                                           \
         printf("%s: no match\n", (_label));                             \
     } else {                                                            \
-        printf("%s: `%.*s'\n", (_label), (_match.rm_eo) - (_match).rm_so, (_str) + (_match.rm_so)); \
+        printf("%s: `%.*s'\n", (_label), (_match).rm_eo - (_match).rm_so, (_str) + (_match).rm_so); \
     }
 
 static const char CandidateAttribute[] = "candidate";
